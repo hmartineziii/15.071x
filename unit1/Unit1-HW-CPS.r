@@ -1,1 +1,48 @@
 CPS=read.csv("CPSData.csv")
+
+#1
+str(CPS)
+summary(CPS)
+table(CPS$Industry)
+sort(table(CPS$Region))
+sort(table(CPS$Citizenship))
+table(CPS$Hispanic, CPS$Race)
+
+#2
+summary(CPS)
+table(CPS$Region, is.na(CPS$Married))
+table(CPS$Sex, is.na(CPS$Married))
+table(CPS$Age, is.na(CPS$Married))
+table(CPS$Citizenship, is.na(CPS$Married))
+table(CPS$State, is.na(CPS$MetroAreaCode))
+table(CPS$Region, is.na(CPS$MetroAreaCode))
+tapply(CPS$State, mean, na.rm=TRUE)
+sort(tapply(is.na(CPS$MetroAreaCode), CPS$State, mean, na.rm=TRUE))
+
+#3
+MetroAreaMap = read.csv("MetroAreaCodes.csv")
+CountryMap = read.csv("CountryCodes.csv")
+str(MetroAreaMap)
+str(CountryMap)
+CPS = merge(CPS, MetroAreaMap, by.x="MetroAreaCode", by.y="Code", all.x=TRUE)
+table(is.na(CPS$MetroArea))
+#ORRR summary(CPS)
+sort(table(CPS$MetroArea))
+sort(tapply(CPS$Hispanic, CPS$MetroArea, mean))
+sort(tapply(CPS$Race=="Asian", CPS$MetroArea, mean))
+sort(tapply(CPS$Education == "No high school diploma", CPS$MetroArea, mean, na.rm=TRUE))
+CPS = merge(CPS, CountryMap, by.x="CountryOfBirthCode", by.y="Code", all.x=TRUE)
+str(CPS)
+summary(CPS)
+sort(table(CPS$Country))
+table(CPS$Country=="United States",CPS$MetroArea=="New York-Northern New Jersey-Long Island, NY-NJ-PA")
+table(CPS$MetroArea == "New York-Northern New Jersey-Long Island, NY-NJ-PA", CPS$Country != "United States")
+sort(tapply(CPS$Country, CPS$MetroArea, max, na.rm=TRUE))
+sort(tapply(CPS$Country=="India", CPS$MetroArea,sum, na.rm=TRUE))
+sort(tapply(CPS$Country=="Brazil", CPS$MetroArea,sum, na.rm=TRUE))
+sort(tapply(CPS$Country=="Somalia", CPS$MetroArea,sum, na.rm=TRUE))
+#ORRR
+which.max(tapply(CPS$Country=="India", CPS$MetroArea,sum, na.rm=TRUE))
+which.max(tapply(CPS$Country=="Brazil", CPS$MetroArea,sum, na.rm=TRUE))
+which.max(tapply(CPS$Country=="Somalia", CPS$MetroArea,sum, na.rm=TRUE))
+
