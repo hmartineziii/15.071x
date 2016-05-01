@@ -36,3 +36,6 @@ max(table(limited$Age, limited$Info.On.Internet))
 jpeg("Unit1-HW-Privacy03.jpg")
 plot(jitter(limited$Age), jitter(limited$Info.On.Internet))
 dev.off()
+
+tapply(poll$Info.On.Internet,poll$Smartphone==1, mean, na.rm=TRUE)
+tapply(poll$Tried.Masking.Identity,poll$Smartphone, table)
