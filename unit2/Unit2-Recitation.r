@@ -34,9 +34,9 @@ RMSE_4
 NBA_test = read.csv("NBA_test.csv")
 PointsPrediction = predict(PointsReg4, newdata = NBA_test)
 SSE = sum((PointsPrediction - NBA_test$PTS)^2)
-SST = sum(mean(NBA$PTS) - NBA_test$PTS)^2)
+SST = sum((mean(NBA$PTS) - NBA_test$PTS)^2)
 R2 = 1 - SSE/SST
 R2
-RMSE = sqrt(SSE/nrow(NBA_tet))
+RMSE = sqrt(SSE/nrow(NBA_test))
 RMSE
 
