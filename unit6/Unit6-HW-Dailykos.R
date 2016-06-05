@@ -1,0 +1,51 @@
+#problem1
+kos = read.csv("dailykos.csv")
+str(kos)
+distances = dist(kos, method = "euclidean")
+clusterKos = hclust(distances, method = "ward.D") 
+plot(clusterKos)
+clusterGroups = cutree(clusterKos, k = 7)
+cluster1 = subset(kos, clusterGroups==1)
+cluster2 = subset(kos, clusterGroups==2)
+cluster3 = subset(kos, clusterGroups==3)
+cluster4 = subset(kos, clusterGroups==4)
+cluster5 = subset(kos, clusterGroups==5)
+cluster6 = subset(kos, clusterGroups==6)
+cluster7 = subset(kos, clusterGroups==7)
+nrow(cluster1)
+nrow(cluster2)
+nrow(cluster3)
+nrow(cluster4)
+nrow(cluster5)
+nrow(cluster6)
+nrow(cluster7)
+tail(sort(colMeans(cluster1)))
+tail(sort(colMeans(cluster2)))
+tail(sort(colMeans(cluster3)))
+tail(sort(colMeans(cluster4)))
+tail(sort(colMeans(cluster5)))
+tail(sort(colMeans(cluster6)))
+tail(sort(colMeans(cluster7)))
+
+#problem2
+k = 7
+set.seed(1000)
+KMC = kmeans(kos, centers = k)
+str(KMC)
+KMCluster1 = subset(kos, KMC$cluster == 1)
+KMCluster2 = subset(kos, KMC$cluster == 2)
+KMCluster3 = subset(kos, KMC$cluster == 3)
+KMCluster4 = subset(kos, KMC$cluster == 4)
+KMCluster5 = subset(kos, KMC$cluster == 5)
+KMCluster6 = subset(kos, KMC$cluster == 6)
+KMCluster7 = subset(kos, KMC$cluster == 7)
+table(KMC$cluster)
+KmeansClusterspl<-split(kos,KMC$cluster)
+kmTopWords <- lapply(KmeansClusterspl, function(c) tail(sort(colMeans(c))))
+kmTopWords
+tail(sort(colMeans(KMCluster1)))
+table(clusterGroups, KMC$cluster)
+
+
+
+
